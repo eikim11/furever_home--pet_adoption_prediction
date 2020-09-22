@@ -23,13 +23,13 @@ Animal shelters across the nation are working hard to care for these companion f
 
 > Part 2. Build and optimize a regression model to predict the number of days a given animal will spend at the shelter.
 
-#### Clean Data
+### Clean Data
 
 First, I created an "Age" column using the approx. date of birth and intake date. About 24% of the animals did not have a date of birth value, for which I replaced with the median age. Whether an animal was fixed (spayed or neutered) was indicated in the "Sex" column, which I extracted to a separate boolean column, "Fixed", in order to have the Sex column only indicate either male or female.  Some of the categorial values were redundant but different (e.g. "DOMESTIC SH" vs. "SH DOMESTIC", "Return to owner" vs. "RTOS"). These were consolidated to group the same type together. The "Breed" and "Color" columns often had more than a single value, as there are a lot of mix breeds and colors. These values were seperated into 2 columns - Breed_1 & Breed_2, and Color_1 & Color_2. 
 
 Then dummies were created, leaving the final dataset with about 550 columns. Running `clean_data.py` will load the raw dataset, clean, and save the final csv files into the data folder, which will be separated into "reg" for regression and "clf" for classifier.
 
-#### EDA
+### EDA
 
 First, I looked at the adoption distribution among different days of the week. As expected, Saturday (but not Sunday, perhaps they are closed) had the highest number of adoptions, followed by Tuesday and then Friday. 
 ![adoptions by dayofweek](https://github.com/eikim11/furever_home--pet_adoption_prediction/blob/master/img/num_adoptions_by_dow.png?raw=true)
@@ -56,7 +56,7 @@ This one here is an interesting one. Under "Euthanize", you can see that there i
 The animal types seem fairly balanced in all outcomes except for "Return (to owner)". This may be due to the fact that dogs get lost more frequently than cats, many of which are indoor cats.
 
 
-#### Part 1. Classification Model
+### Part 1. Classification Model
 
 To predict a given animal's outcome type - Euthanize (0), Transfer (1), Return (2), and Adoption (3) - I realized that XG Boost Classifier yielded the best results for Class 3 (Adoption) and Class 0 (Euthanize). The main evaluation metric used was recall (TP / (TP + FN)), which you can read more about here: ![Precision and Recall](https://en.wikipedia.org/wiki/Precision_and_recall). The 4 outcome classes were not balanced, but the model performed better for our most important classes WITHOUT oversampling via SMOTE. The final XG Boost Classifier after finding the optimal parameters via GridSearchCV resulted in the following recall scores:
 
@@ -68,13 +68,13 @@ To predict a given animal's outcome type - Euthanize (0), Transfer (1), Return (
 
 - Class 3 (Adoption): **0.864**
 
-#### Part 2. Regression Model
+### Part 2. Regression Model
 
 Next, to predict the number of days a given animal will spend at the shelter, I built a few different regressor models - Random Forest, Gradient Boosting, and XG Boost Regressor. Similar to the classification model, XG Boost Regressor yielded the best result here too. The main evaluation metric used was Mean Absolute Error (MAE). The reason why I did not use squared error metrics such as MSE or RMSE is to not penalize outliers too harshly. 
 
 First, I calculated the baseline MAE, which was 16.33. The final XG Boost model gave an MAE of 11.29, which was a 31% decrease from the baseline value.
 
-#### Conclusion
+### Conclusion
 
 As for the classification model in Part 1, the recall score for Class 1 (Transfer) was low as expected. As mentioned before, this may be because transfer depends more on the capacity and flexibility of neighboring shelters rather than specific animal characteristics. However, our model is able to correctly classify the Adoption class (3) over 86% of the time. 
 
