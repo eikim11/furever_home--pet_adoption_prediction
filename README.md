@@ -7,7 +7,6 @@
 - [Description](#description)
 - [How To Use](#how-to-use)
 - [References](#references)
-- [License](#license)
 - [Author Info](#author-info)
 
 ---
@@ -95,7 +94,7 @@ In order to optimize the adoption rate, thus reducing the number of unnecessary 
 - sklearn
 - imblearn
 
-[Back To The Top](### Table of Contents)
+[Back To The Top](#Table-of-Contents)
 
 ---
 
@@ -108,7 +107,7 @@ Running `python clean_data.py` will load the dataset, clean, create dummies, and
 
 Source: https://data.sonomacounty.ca.gov/widgets/924a-vesw
 
-[Back To The Top](### Table of Contents)
+[Back To The Top](#Table-of-Contents)
 
 ---
 
@@ -117,4 +116,4 @@ Source: https://data.sonomacounty.ca.gov/widgets/924a-vesw
 - email - [edward.kim9280@gmail.com](edward.kim9280@gmail.com)
 - LinkedIn - [Edward Kim](https://www.linkedin.com/in/edwardkim11/)
 
-[Back To The Top](### Table of Contents)
+[Back To The Top](#Table-of-Contents)
