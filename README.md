@@ -18,9 +18,10 @@
 
 The original dataset contains about 20,000 rows describing each animal that enters an animal shelter in Sonoma County, CA from August, 2013 to September, 2020. It also contains 25 columns that include animal name, type, breed color, sex, size, approx. date of birth, outcome date, days in shelter, outcome type, intake/outcome condition, jurisdiction, location, date, etc.
 
-As animal shelters across the nation are working hard to care for these companion friends to find their fur-ever homes, I decided to examine the data and accomplish the following:
+Animal shelters across the nation are working hard to care for these companion friends to find their fur-ever homes. In order for them to be able to operate smoothly within capacity and to minimize animal euthanasia (unless absolutely necessary), I decided to examine the data to accomplish the following:
 
 > Part 1. Build and optimize a classification model to predict a given animal's outcome type - adoption, return to owner, transfer, and euthanize.
+
 > Part 2. Build and optimize a regression model to predict the number of days a given animal will spend at the shelter.
 
 #### Clean Data
@@ -36,24 +37,47 @@ First, I looked at the adoption distribution among different days of the week. A
 
 Next, animals that are younger seem to be more likely to be adopted. Below is the density distribution of the animals' age by each of the 4 outcome types. 
 
-Include Age graphs
+![age density disribution by outcome type](https://github.com/eikim11/furever_home--pet_adoption_prediction/blob/master/img/Age_distro_per_outcome_type.png?raw=true)
 
-Include days in shelter by outcome
+And here is the average age distribution among the different outcome types. Animals that get adopted have the lowest average age at just under 2 years, while animals that get returned to owners have the highest. Perhaps because people in general look for their lost companion animals no matter how old they are.
 
-Include outcome by animal type
+![average age by outcome type](https://github.com/eikim11/furever_home--pet_adoption_prediction/blob/master/img/avg_age_by_outcome_type.png?raw=true)
+
+In terms of predicting the outcome type, for the purpose of this project, the two most important classes will be "Adoption" followed by "Euthanized". The reason why I consider "Adoption" to be more important is that optimizing a better adoption rate will consequently help reduce the number of euthanasia caused by capacity issues. 
+
+Before jumping into how I built a classification model to predict outcome types, here are some additional statistics regarding the days spent in shelter and outcome by animal type. There were 3 unique values for the animal type column - Dogs, Cats, and Other (includes chickens, rabbits, goats, donkeys, etc.)
+
+![avg number of days in shelter](https://github.com/eikim11/furever_home--pet_adoption_prediction/blob/master/img/avg_days_spent.png?raw=true)
+Animals that are returned to owners spend on average 3.4 days in shelter, while animals that are adopted spend on average 31.4 days in shelter. Assuming that "Transfer" is mostly based on the flexibility and capacity of neighboring shelters, it will be tough to determine what characteristics of an animal makes it most likely to be transferred.
+
+![outcome type by intake condition](https://github.com/eikim11/furever_home--pet_adoption_prediction/blob/master/img/outcome_type_by_intake_condition.png?raw=true)
+This one here is an interesting one. Under "Euthanize", you can see that there is a noticeable chunk of animals that get euthanized not due to their health condition. This leads me to assume that healthy animals get euthanized due to the shelter's capacity issues, which is what I hope to mitigate using my models.
+
+![outcome by animal type](https://github.com/eikim11/furever_home--pet_adoption_prediction/blob/master/img/outcome_type_hist_by_type.png?raw=true)
+The animal types seem fairly balanced in all outcomes except for "Return (to owner)". This may be due to the fact that dogs get lost more frequently than cats, many of which are indoor cats.
+
 
 #### Part 1. Classification Model
 
-Describe XG Boost Classifier
+To predict a given animal's outcome type - Euthanize (0), Transfer (1), Return (2), and Adoption (3) - I realized that XG Boost Classifier yielded the best results for Class 3 (Adoption) and Class 0 (Euthanize). The main evaluation metric used was recall (TP / (TP + FN)), which you can read more about here: ![Precision and Recall](https://en.wikipedia.org/wiki/Precision_and_recall). The 4 outcome classes were not balanced, but the model performed better for our most important classes WITHOUT oversampling via SMOTE. The final XG Boost Classifier after finding the optimal parameters via GridSearchCV resulted in the following recall scores:
+    - Class 0 (Euthanize): 0.764
+    - Class 1 (Transfer): 0.601
+    - Class 2 (Return): 0.843
+    - Class 3 (Adoption): **0.864**
 
 #### Part 2. Regression Model
 
-Describe XG Boost Regressor
+Next, to predict the number of days a given animal will spend at the shelter, I built a few different regressor models - Random Forest, Gradient Boosting, and XG Boost Regressor. Similar to the classification model, XG Boost Regressor yielded the best result here too. The main evaluation metric used was Mean Absolute Error (MAE). The reason why I did not use squared error metrics such as MSE or RMSE is to not penalize outliers too harshly. 
+
+First, I calculated the baseline MAE, which was 16.33. The final XG Boost model gave an MAE of 11.29, which was a 31% decrease from the baseline value.
 
 #### Conclusion
 
-Evaluation metric
-Fix top 5 importances
+As for the classification model in Part 1, the recall score for Class 1 (Transfer) was low as expected. As mentioned before, this may be because transfer depends more on the capacity and flexibility of neighboring shelters rather than specific animal characteristics. However, our model is able to correctly classify the Adoption class (3) over 86% of the time. Here are the top 5 most important features in each of my models:
+
+** Insert top 5 features **
+
+Regression model conclusion
 
 #### Technologies
 
