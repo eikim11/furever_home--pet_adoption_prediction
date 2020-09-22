@@ -50,7 +50,7 @@ Before jumping into how I built a classification model to predict outcome types,
 Animals that are returned to owners spend on average 3.4 days in shelter, while animals that are adopted spend on average 31.4 days in shelter. Assuming that "Transfer" is mostly based on the flexibility and capacity of neighboring shelters, it will be tough to determine what characteristics of an animal makes it most likely to be transferred.
 
 ![outcome type by intake condition](https://github.com/eikim11/furever_home--pet_adoption_prediction/blob/master/img/outcome_type_by_intake_condition.png?raw=true)
-This one here is an interesting one. Under "Euthanize", you can see that there is a noticeable chunk of animals that get euthanized not due to their health condition. This leads me to assume that healthy animals get euthanized due to the shelter's capacity issues, which is what I hope to mitigate using my models.
+The above graph shows the total number of different outcome types separated by the animals' intake conditions. While euthanasia may sometimes be best for an untreatable animal, you can see that there is a noticeable amount of healthy or treatable as well. This leads me to assume that healthy animals get euthanized perhaps due to the shelter's capacity issues, which I hope to mitigate using my models.
 
 ![outcome by animal type](https://github.com/eikim11/furever_home--pet_adoption_prediction/blob/master/img/outcome_type_hist_by_type.png?raw=true)
 The animal types seem fairly balanced in all outcomes except for "Return (to owner)". This may be due to the fact that dogs get lost more frequently than cats, many of which are indoor cats.
