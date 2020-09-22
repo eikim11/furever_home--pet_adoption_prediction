@@ -60,10 +60,14 @@ The animal types seem fairly balanced in all outcomes except for "Return (to own
 #### Part 1. Classification Model
 
 To predict a given animal's outcome type - Euthanize (0), Transfer (1), Return (2), and Adoption (3) - I realized that XG Boost Classifier yielded the best results for Class 3 (Adoption) and Class 0 (Euthanize). The main evaluation metric used was recall (TP / (TP + FN)), which you can read more about here: ![Precision and Recall](https://en.wikipedia.org/wiki/Precision_and_recall). The 4 outcome classes were not balanced, but the model performed better for our most important classes WITHOUT oversampling via SMOTE. The final XG Boost Classifier after finding the optimal parameters via GridSearchCV resulted in the following recall scores:
-    - Class 0 (Euthanize): 0.764
-    - Class 1 (Transfer): 0.601
-    - Class 2 (Return): 0.843
-    - Class 3 (Adoption): **0.864**
+
+- Class 0 (Euthanize): 0.764
+
+- Class 1 (Transfer): 0.601
+
+- Class 2 (Return): 0.843
+
+- Class 3 (Adoption): **0.864**
 
 #### Part 2. Regression Model
 
@@ -73,72 +77,44 @@ First, I calculated the baseline MAE, which was 16.33. The final XG Boost model 
 
 #### Conclusion
 
-As for the classification model in Part 1, the recall score for Class 1 (Transfer) was low as expected. As mentioned before, this may be because transfer depends more on the capacity and flexibility of neighboring shelters rather than specific animal characteristics. However, our model is able to correctly classify the Adoption class (3) over 86% of the time. Here are the top 5 most important features in each of my models:
+As for the classification model in Part 1, the recall score for Class 1 (Transfer) was low as expected. As mentioned before, this may be because transfer depends more on the capacity and flexibility of neighboring shelters rather than specific animal characteristics. However, our model is able to correctly classify the Adoption class (3) over 86% of the time. 
 
-** Insert top 5 features **
+As for the regression model in Part 2, my XG Boost Regressor model can predict the number of days an animal will spend at the shelter with over 30% less mean absolute error compared to the baseline metric.
 
-Regression model conclusion
+Here are the top 5 most important features in each of my models excluding specific breeds:
+
+![Top 5 features](https://github.com/eikim11/furever_home--pet_adoption_prediction/blob/master/img/Top5.png?raw=true)
+
+Age, intake condition, and intake date have a significant influence in both models, which was expected. However, an animal that is fixed and has a name are also more likely to be adopted than those that do not. 
+
+In order to optimize the adoption rate, thus reducing the number of unnecessary euthanasia, the shelter can make sure that the animals are fixed and given a name. Also, featuring the most adoptable pets in their marketing efforts may also increase the adoption rate and free up more capacity at the shelter. 
 
 #### Technologies
 
-- Technology 1
-- Technology 2
+- xgboost
+- sklearn
+- imblearn
 
-[Back To The Top](#read-me-template)
+[Back To The Top](### Table of Contents)
 
 ---
 
 ## How To Use
-
-#### Installation
-
-
-
-#### API Reference
-
-```html
-    <p>dummy code</p>
-```
-[Back To The Top](#read-me-template)
+Running `python clean_data.py` will load the dataset, clean, create dummies, and save the final csv's into the data folder. After that, you can run `python run_models.py` which will load the cleaned dataset, instantiate models, train, predict, and give results.
 
 ---
 
 ## References
-[Back To The Top](#read-me-template)
 
----
+Source: https://data.sonomacounty.ca.gov/widgets/924a-vesw
 
-## License
-
-MIT License
-
-Copyright (c) [2017] [James Q Quick]
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-[Back To The Top](#read-me-template)
+[Back To The Top](### Table of Contents)
 
 ---
 
 ## Author Info
 
-- Twitter - [@jamesqquick](https://twitter.com/jamesqquick)
-- Website - [James Q Quick](https://jamesqquick.com)
+- email - [edward.kim9280@gmail.com](edward.kim9280@gmail.com)
+- LinkedIn - [Edward Kim](https://www.linkedin.com/in/edwardkim11/)
 
-[Back To The Top](#read-me-template)
+[Back To The Top](### Table of Contents)
