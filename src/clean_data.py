@@ -229,8 +229,8 @@ if __name__ == "__main__":
     # datasets to be plugged into classification model
     df_clf = drop_cols(df, 'clf')
     df_cat_clf = drop_cols(df_cat, 'clf')
-    df_dog_clf = drop_cols(df_cat, 'clf')
-    df_other_clf = drop_cols(df_cat, 'clf')
+    df_dog_clf = drop_cols(df_dog, 'clf')
+    df_other_clf = drop_cols(df_other, 'clf')
 
     # Save cleaned dataframes as csv
     df_reg.to_csv('data/reg_data_cleaned.csv')
