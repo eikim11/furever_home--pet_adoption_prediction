@@ -58,7 +58,7 @@ The animal types seem fairly balanced in all outcomes except for "Return (to own
 
 ### Part 1. Classification Model
 
-To predict a given animal's outcome type - Euthanize (0), Transfer (1), Return (2), and Adoption (3) - I realized that XG Boost Classifier yielded the best results for Class 3 (Adoption) and Class 0 (Euthanize). The main evaluation metric used was recall (TP / (TP + FN)), which you can read more about here: ![Precision and Recall](https://en.wikipedia.org/wiki/Precision_and_recall). The 4 outcome classes were not balanced, but the model performed better for our most important classes WITHOUT oversampling via SMOTE. The final XG Boost Classifier after finding the optimal parameters via GridSearchCV resulted in the following recall scores:
+To predict a given animal's outcome type - Euthanize (0), Transfer (1), Return (2), and Adoption (3) - I realized that XG Boost Classifier yielded the best results for Class 3 (Adoption) and Class 0 (Euthanize). The main evaluation metric used was recall (TP / (TP + FN)), which you can read more about here: [Precision and Recall](https://en.wikipedia.org/wiki/Precision_and_recall). The 4 outcome classes were not balanced, but the model performed better for our most important classes WITHOUT oversampling via SMOTE. The final XG Boost Classifier after finding the optimal parameters via GridSearchCV resulted in the following recall scores:
 
 - Class 0 (Euthanize): 0.764
 
