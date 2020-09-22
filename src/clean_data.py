@@ -59,6 +59,11 @@ def replace_simplify_group_cols(df):
     simplify_col_vals(df, 'Outcome Type', outcome_adopt, [3])
     # dtype of this column is object -- might need to change to int later
 
+    # Consolidate redundant cat breeds
+    simplify_col_vals(df, 'Breed', ['LH DOMESTIC'], ['DOMESTIC LH'])
+    simplify_col_vals(df, 'Breed', ['MH DOMESTIC'], ['DOMESTIC MH'])
+    simplify_col_vals(df, 'Breed', ['SH DOMESTIC'], ['DOMESTIC SH'])
+
     return df
 
 def create_fill_age_col(df, method='median'):
@@ -237,3 +242,4 @@ if __name__ == "__main__":
     df_cat_clf.to_csv('data/clf_cat_data.csv')
     df_dog_clf.to_csv('data/clf_dog_data.csv')
     df_other_clf.to_csv('data/clf_other_data.csv')
+    print("csv files saved in data folder!")

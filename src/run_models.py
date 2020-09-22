@@ -56,8 +56,7 @@ def run_xgb_clf(df_clf, learning_rate=0.05, max_depth=10, n_estimators=500):
 
   xgb_model.fit(X_train, y_train)
 
-  xgb_predict=xgb_model.predict(X_test)
-
+  xgb_predict = xgb_model.predict(X_test)
 
   print("Confusion Matrix: \n", confusion_matrix(y_test,xgb_predict))
 
@@ -70,8 +69,7 @@ def run_xgb_clf(df_clf, learning_rate=0.05, max_depth=10, n_estimators=500):
   matrix = confusion_matrix(y_test, xgb_predict)
   acc_per_class = matrix.diagonal()/matrix.sum(axis=0)
 
-  print('Accuracy per class:', acc_per_class)
-
+  print('Accuracy per class:', acc_per_class, '\n')
 
 #XG Boost Regressor - to predict how many days a given animal will stay at the shelter
 def run_xgb_reg(df, booster='gbtree', colsample_bytree=0.8, learning_rate=0.05, max_depth=100, alpha=8):
@@ -88,13 +86,13 @@ def run_xgb_reg(df, booster='gbtree', colsample_bytree=0.8, learning_rate=0.05, 
 
   # Print baseline MAE score
   baseline_errors = abs(y_test - y_test.mean())
-  print('Average baseline error: ', round(np.mean(baseline_errors), 2))
+  print('Baseline Mean Absolute Error(MAE): ', round(np.mean(baseline_errors), 2))
 
   # Set up XG Boost Regressor model
   xg_reg = xgb.XGBRegressor(booster=booster, colsample_bytree=colsample_bytree, learning_rate=learning_rate,
                   max_depth=max_depth, alpha=alpha)
 
-  xg_reg.fit(X_train,y_train, verbose=True,
+  xg_reg.fit(X_train,y_train, verbose=False,
               early_stopping_rounds = 10,
               eval_metric='mae',
               eval_set=[(X_test, y_test)])
@@ -115,8 +113,7 @@ def run_xgb_reg(df, booster='gbtree', colsample_bytree=0.8, learning_rate=0.05, 
 
   MAE = mean_absolute_error(y_test, preds)
   # Print metrics
-  print('Mean Absolute Error (MAE):', MAE)
-  print('% Decrease from baseline MAE: ', (baseline_errors - MAE) / baseline_errors)
+  print('XGBoost Mean Absolute Error (MAE):', MAE)
 #     print('Mean Squared Error (MSE):', mean_squared_error(y_test, preds))
 #     print('Root Mean Squared Error (RMSE):', np.sqrt(mean_squared_error(y_test, preds)))
 
@@ -127,7 +124,9 @@ if __name__ == "__main__":
   df_reg = pd.read_csv('data/reg_data_cleaned.csv')
 
 # Run classification model to predict outcome
+  print("Results from XG Boost Classifier - Predict Outcome")
   run_xgb_clf(df_clf)
 
 # Run regression model to predict number of days in shelter
+  print("Results from XG Boost Regressor - Predict Number of Days in Shelter")
   run_xgb_reg(df_reg)
